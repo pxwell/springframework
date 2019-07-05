@@ -1,8 +1,10 @@
 package cn.pxwell.ioc.learn.config;
 
+import cn.pxwell.ioc.learn.aware.Showen;
 import cn.pxwell.ioc.learn.service.MyService;
 import cn.pxwell.ioc.learn.service.UserService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /*
@@ -10,16 +12,23 @@ import org.springframework.context.annotation.Configuration;
  将AppConfig2 的beanDefinition的属性配置为full 类型。不配置为lite
  */
 
+@ComponentScan("cn.pxwell.ioc.learn")
 @Configuration
 public class AppConfig2 {
 
-	@Bean
+	/*@Bean
 	public MyService myService(){
 		return  new MyService();
-	}
+	}*/
 
-	@Bean
+	/*@Bean
 	public UserService userService(){
 		return  new UserService(myService());
+	}*/
+
+
+	@Bean(initMethod = "init")
+	public Showen showen(){
+		return  new Showen();
 	}
 }
