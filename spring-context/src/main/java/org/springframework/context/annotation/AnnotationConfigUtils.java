@@ -163,6 +163,8 @@ public abstract class AnnotationConfigUtils {
 
 		if (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) {
 			//new 一个新的 RootBeanDefintion  注入 ConfigurationClassPostProcessor
+			// ConfigurationClassPostProcessor 用来注入 @Bean  @Componend 等 注解的bean 的后置处理器！！！
+			// 	PriorityOrdered
 			RootBeanDefinition def = new RootBeanDefinition(ConfigurationClassPostProcessor.class);
 			def.setSource(source);
 			beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME));

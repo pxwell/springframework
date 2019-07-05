@@ -121,10 +121,13 @@ abstract class ConfigurationClassUtils {
 			}
 		}
 
+
 		Map<String, Object> config = metadata.getAnnotationAttributes(Configuration.class.getName());
+		//判断是否配置了@configuration
 		if (config != null && !Boolean.FALSE.equals(config.get("proxyBeanMethods"))) {
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_FULL);
 		}
+		//@Comspan 等类型
 		else if (config != null || isConfigurationCandidate(metadata)) {
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_LITE);
 		}

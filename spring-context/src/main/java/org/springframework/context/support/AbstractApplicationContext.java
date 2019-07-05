@@ -542,24 +542,38 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				//org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(org.springframework.beans.factory.config.ConfigurableListableBeanFactory, java.util.List<org.springframework.beans.factory.config.BeanFactoryPostProcessor>)
+				// 1 调用后置处理器 BeanDefinitionRegistryPostProcessor#postProcessBeanDefinitionRegistry
+				// 注册所有的 bean
+				// 2 调用org.springframework.context.annotation.ConfigurationClassPostProcessor#postProcessBeanFactory
+				// 增强 @Configuration 配置类 ，将其代理为 CGLAB类型  防止内部多利
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				//注册拦截Bean创建的后置处理器
+				//1. 添加Spring自身的 BeanPostProcessChecker 以及注册了beanDefinition 的两个
+				// CommonAnnotationBeanPostProcess  AutowireAnnotationBeanPostProcess
+				// 重新添加ApplicationListenerDetector  ,删除旧的 移到处理器链结尾
+				//2 . 用户自定义后置处理器
+				// 注册了beanDefinition 的会通过 beanFactory.getBean() 获取后置处理器
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
+				//初始化 事件多播器
 				initApplicationEventMulticaster();
 
 				// Initialize other special beans in specific context subclasses.
+				//org.springframework.web.context.support.AbstractRefreshableWebApplicationContext.onRefresh
 				onRefresh();
 
 				// Check for listener beans and register them.
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
+				//实例化剩余所有非懒加载 的单例
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
@@ -715,7 +729,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * <p>Must be called before singleton instantiation.
 	 */
 	protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
-		//
+		//解析注解！！！！！！！所有的解析都在里边
 		PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
 
 		// Detect a LoadTimeWeaver and prepare for weaving, if found in the meantime

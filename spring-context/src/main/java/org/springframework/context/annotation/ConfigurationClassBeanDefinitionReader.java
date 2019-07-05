@@ -137,14 +137,18 @@ class ConfigurationClassBeanDefinitionReader {
 			return;
 		}
 
+		//imports  或 importSelection 的bean 注册到容器
 		if (configClass.isImported()) {
 			registerBeanDefinitionForImportedConfigurationClass(configClass);
 		}
+		//如果beanMethods不为空
 		for (BeanMethod beanMethod : configClass.getBeanMethods()) {
 			loadBeanDefinitionsForBeanMethod(beanMethod);
 		}
 
+		// @ importResource 配置的bean注册到容器
 		loadBeanDefinitionsFromImportedResources(configClass.getImportedResources());
+		// 实现 importBeanDefinitionRegistrar 的bean
 		loadBeanDefinitionsFromRegistrars(configClass.getImportBeanDefinitionRegistrars());
 	}
 

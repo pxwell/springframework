@@ -83,6 +83,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * from the given annotated classes and automatically refreshing the context.
 	 * @param annotatedClasses one or more annotated classes,
 	 * e.g. {@link Configuration @Configuration} classes
+	 *                     初始化默认     DefaultListableBeanFactory
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... annotatedClasses) {
 		//初始化bean定义读取器 和 扫描器
