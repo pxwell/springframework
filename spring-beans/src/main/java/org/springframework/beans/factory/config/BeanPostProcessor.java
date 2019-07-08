@@ -33,6 +33,14 @@ import org.springframework.lang.Nullable;
  * while post-processors that wrap beans with proxies will normally
  * implement {@link #postProcessAfterInitialization}.
  *
+ *
+ * 允许自定义修改新bean实例的工厂钩子，
+ * 如。检查标记接口或用代理包装它们。
+ * applicationcontext可以自动检测它们中的bean后处理器bean
+ * bean定义，并将它们应用于随后创建的任何bean。
+ * 普通bean工厂允许编程注册后处理程序，
+ * 应用于通过该工厂创建的所有bean。
+ *
  * @author Juergen Hoeller
  * @since 10.10.2003
  * @see InstantiationAwareBeanPostProcessor

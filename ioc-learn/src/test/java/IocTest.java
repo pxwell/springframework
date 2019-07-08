@@ -1,13 +1,8 @@
+import cn.pxwell.ioc.learn.aware.Showen;
 import cn.pxwell.ioc.learn.config.AppConfig;
-import cn.pxwell.ioc.learn.config.AppConfig2;
-import cn.pxwell.ioc.learn.config.AppConfig3;
 import cn.pxwell.ioc.learn.entity.Fox;
 import cn.pxwell.ioc.learn.entity.Monkey;
-import cn.pxwell.ioc.learn.entity.User;
-import cn.pxwell.ioc.learn.service.TestService;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.*;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
@@ -44,29 +39,13 @@ public class IocTest {
 		// AppConfig方式
 		ApplicationContext context = new AnnotationConfigApplicationContext( AppConfig.class );
 
-		System.out.println(  context.getBean( "myFactoryBean" ));
-		System.out.println(  context.getBean( "&myFactoryBean" ));
+	   Fox fox = (Fox) context.getBean( "fox" );
+		System.out.println( fox.getName() );
 	}
+
 
 	@Test
 	public void test2(){
-		// AppConfig方式
-		ApplicationContext context = new AnnotationConfigApplicationContext( AppConfig2.class );
-
-
-	}
-
-	@Test
-	public void test3(){
-		ApplicationContext context = new AnnotationConfigApplicationContext( AppConfig3.class );
-
-		System.out.println(  "(test)"+context.getBean( User.class ));
-		System.out.println(  "(test)"+context.getBean( "fox" ));
-		//System.out.println(  context.getBean( "&myService" ));
-	}
-
-	@Test
-	public void test4(){
 
 		DefaultListableBeanFactory registry = new DefaultListableBeanFactory(  );
 

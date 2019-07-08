@@ -111,7 +111,7 @@ final class PostProcessorRegistrationDelegate {
 			// Next, invoke the BeanDefinitionRegistryPostProcessors that implement Ordered.
 			postProcessorNames = beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
 			for (String ppName : postProcessorNames) {
-				//去容器查询是否实现了Ordered  接口的 BeanDefinitionRegistryPostProcessors
+				//去容器查询是否实现了Ordered  （主动排序） 接口的 BeanDefinitionRegistryPostProcessors
 				if (!processedBeans.contains(ppName) && beanFactory.isTypeMatch(ppName, Ordered.class)) {
 					currentRegistryProcessors.add(beanFactory.getBean(ppName, BeanDefinitionRegistryPostProcessor.class));
 					processedBeans.add(ppName);
@@ -122,6 +122,7 @@ final class PostProcessorRegistrationDelegate {
 			//再次调取ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry 解析注册bean
 			invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);
 			currentRegistryProcessors.clear();
+
 
 			// Finally, invoke all other BeanDefinitionRegistryPostProcessors until no further ones appear.
 			//最终再次调取 其他 的 BeanDefinitionRegistryPostProcessor

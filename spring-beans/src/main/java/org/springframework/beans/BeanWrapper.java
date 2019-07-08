@@ -23,7 +23,7 @@ import java.beans.PropertyDescriptor;
  *
  * <p>Typically not used directly but rather implicitly via a
  * {@link org.springframework.beans.factory.BeanFactory} or a
- * {@link org.springframework.validation.DataBinder}.
+
  *
  * <p>Provides operations to analyze and manipulate standard JavaBeans:
  * the ability to get and set property values (individually or in bulk),
@@ -43,8 +43,7 @@ import java.beans.PropertyDescriptor;
  * @see PropertyEditorRegistry
  * @see PropertyAccessorFactory#forBeanPropertyAccess
  * @see org.springframework.beans.factory.BeanFactory
- * @see org.springframework.validation.BeanPropertyBindingResult
- * @see org.springframework.validation.DataBinder#initBeanPropertyAccess()
+
  */
 public interface BeanWrapper extends ConfigurablePropertyAccessor {
 

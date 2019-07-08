@@ -1,4 +1,4 @@
-package cn.pxwell.ioc.learn.selector;
+package cn.pxwell.ioc.learn.importDemo;
 
 import cn.pxwell.ioc.learn.entity.Fox;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;

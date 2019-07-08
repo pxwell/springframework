@@ -1,4 +1,4 @@
-package cn.pxwell.ioc.learn.selector;
+package cn.pxwell.ioc.learn.importDemo;
 
 import cn.pxwell.ioc.learn.entity.User;
 import org.springframework.context.annotation.ImportSelector;

@@ -1,19 +1,38 @@
 package cn.pxwell.ioc.learn.entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 //xml
+@Component
 public class Fox {
+	@Value("${name}" )
+	private String name;
 
-	//@Autowired
-	private User user;
+
 
 
 	public Fox() {
 		System.out.println( "------public Fox() -------" );
 	}
 
-	private String name;
+
+
+	@Autowired
+	public Fox(Monkey monkey,@Value(  "${name}" )String name) {
+		System.out.println( "------Fox(Monkey monkey,String name) ----- name = "+name+"--------" );
+	}
+
+
+
+	public Fox(Monkey monkey,Tiger tiger) {
+		System.out.println( "------Fox(Monkey monkey,Tiger tiger) ----" );
+	}
+
+
+
+
 
 	public String getName() {
 		return name;
@@ -24,13 +43,5 @@ public class Fox {
 	}
 
 
-	public User getUser() {
-		return user;
-	}
 
-	//xml  property 标签 注入属性
-	public void setUser(User user) {
-		System.out.println( "----setUser(User user)----" );
-		this.user = user;
-	}
 }

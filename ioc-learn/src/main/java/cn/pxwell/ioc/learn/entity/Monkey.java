@@ -1,5 +1,8 @@
 package cn.pxwell.ioc.learn.entity;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Monkey {
 	private String name;
 

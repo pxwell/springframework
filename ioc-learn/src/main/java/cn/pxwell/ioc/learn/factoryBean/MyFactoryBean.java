@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-@Component
+/*@Component*/
 public class MyFactoryBean implements FactoryBean {
 
 	@Override

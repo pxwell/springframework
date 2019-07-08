@@ -37,6 +37,15 @@ import org.springframework.beans.BeansException;
  * If bean instance interaction is required, consider implementing
  * {@link BeanPostProcessor} instead.
  *
+ * 允许自定义修改应用程序上下文的bean定义，
+ * 调整上下文的基础bean工厂的bean属性值。
+ * 它们的bean定义，并在创建任何其他bean之前应用它们。
+ * 适用于针对系统管理员的自定义配置文件
+ * 参见PropertyResourceConfigurer及其具体实现
+ * 用于解决此类配置需求的开箱即用解决方案。
+ * 定义，但从来没有bean实例。这样做可能会导致早熟
+ * 实例化，违反容器并导致意外的副作用。
+ *
  * @author Juergen Hoeller
  * @since 06.07.2003
  * @see BeanPostProcessor
