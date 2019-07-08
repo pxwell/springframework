@@ -228,7 +228,6 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	}
 
 
-	//选择构造器时  绝对要进入的方法
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
 		InjectionMetadata metadata = findAutowiringMetadata(beanName, beanType, null);
@@ -243,6 +242,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 
 	//确定候选构造器
+	//扫描autowired 修饰的构造器
 	@Override
 	@Nullable
 	public Constructor<?>[] determineCandidateConstructors(Class<?> beanClass, final String beanName)
@@ -308,7 +308,8 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 						}
 						else if (primaryConstructor != null) {
 							continue;
-						}		//过滤构造器 判断是否有@autowired注解
+						}
+						//过滤构造器 判断当前的构造器是否有@autowired注解
 						MergedAnnotation<?> ann = findAutowiredAnnotation(candidate);
 						if (ann == null) {
 							Class<?> userClass = ClassUtils.getUserClass(beanClass);
@@ -383,9 +384,10 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	@Override
 	public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) {
+		//找到@AutoWired 属性 ，并且填充到 InjectionMetadata 中
 		InjectionMetadata metadata = findAutowiringMetadata(beanName, bean.getClass(), pvs);
 		try {
-			//2
+			//通过反射的方式注入属性
 			metadata.inject(bean, beanName, pvs);
 		}
 		catch (BeanCreationException ex) {
@@ -439,6 +441,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 					if (metadata != null) {
 						metadata.clear(pvs);
 					}
+					//扫描到@Autowired属性 和 @Value 注入到InjectionMetadata 中
 					metadata = buildAutowiringMetadata(clazz);
 					this.injectionMetadataCache.put(cacheKey, metadata);
 				}
@@ -505,6 +508,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 		return InjectionMetadata.forElements(elements, clazz);
 	}
+
 	//找到@autowired注解的构造器 或者 value注解的参数？？？？？
 	@Nullable
 	private MergedAnnotation<?> findAutowiredAnnotation(AccessibleObject ao) {
@@ -597,6 +601,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 * Class representing injection information about an annotated field.
+	 * 我去啊  依赖注入 属性的过滤 以及 注入 竟然在这里！！！
 	 */
 	private class AutowiredFieldElement extends InjectionMetadata.InjectedElement {
 
@@ -626,6 +631,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				Assert.state(beanFactory != null, "No BeanFactory available");
 				TypeConverter typeConverter = beanFactory.getTypeConverter();
 				try {
+					//找到value  -- 根据 beanName 过滤
 					value = beanFactory.resolveDependency(desc, beanName, autowiredBeanNames, typeConverter);
 				}
 				catch (BeansException ex) {
