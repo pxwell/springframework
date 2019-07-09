@@ -1,15 +1,17 @@
-package cn.pxwell.lean.aop;
+package cn.pxwell.learn.aop;
 
-import cn.pxwell.lean.aop.interceptor.AopMethodInterceptor;
-import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
+import cn.pxwell.learn.aop.interceptor.AopMethodInterceptor;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.aop.support.NameMatchMethodPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @Configuration
-@ComponentScan("cn.pxwell.lean.aop")
+@ComponentScan("cn.pxwell.learn.aop")
+//true 使用CGLib代理
+@EnableAspectJAutoProxy(proxyTargetClass=true)
 public class AppConfig {
 
 	//BeanNameAutoProxyCreator (AOP)  粒度大 类级别的 代理
@@ -23,7 +25,7 @@ public class AppConfig {
 
 
 //***************************************************************************************************************
-	@Bean
+	/*@Bean
 	public AopMethodInterceptor aopMethodInterceptor(){
 			return new AopMethodInterceptor();
 	}
@@ -41,7 +43,7 @@ public class AppConfig {
    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
 		return new DefaultAdvisorAutoProxyCreator();
    }
-
+*/
 
 //***************************************************************************************************************
 

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
  将AppConfig2 的beanDefinition的属性配置为full 类型。不配置为lite
  */
 
-@ComponentScan("cn.pxwell.ioc.learn")
+@ComponentScan("cn.pxwell.learn.ioc")
 @Configuration
 @PropertySource("classpath:system.properties" )
 public class AppConfig {

@@ -45,7 +45,7 @@ import org.springframework.aop.SpringProxy;
  */
 @SuppressWarnings("serial")
 public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
-
+	//代理对象的核心方法 确实是CGlib还是 apiProxy
 	@Override
 	public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException {
 		if (config.isOptimize() || config.isProxyTargetClass() || hasNoUserSuppliedProxyInterfaces(config)) {

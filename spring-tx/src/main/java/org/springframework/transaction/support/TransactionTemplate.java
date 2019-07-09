@@ -127,6 +127,9 @@ public class TransactionTemplate extends DefaultTransactionDefinition
 
 	@Override
 	@Nullable
+	/**
+	 * 执行事务逻辑
+	 */
 	public <T> T execute(TransactionCallback<T> action) throws TransactionException {
 		Assert.state(this.transactionManager != null, "No PlatformTransactionManager set");
 
@@ -141,6 +144,7 @@ public class TransactionTemplate extends DefaultTransactionDefinition
 			}
 			catch (RuntimeException | Error ex) {
 				// Transactional code threw application exception -> rollback
+				//捕捉 RuntimeException 或 Error异常  回滚事务
 				rollbackOnException(status, ex);
 				throw ex;
 			}
