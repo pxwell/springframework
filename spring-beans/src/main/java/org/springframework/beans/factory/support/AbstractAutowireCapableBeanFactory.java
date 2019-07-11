@@ -295,9 +295,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		return (T) createBean(beanClass.getName(), bd, null);
 	}
 
+
+	//向容器中手动注入实例后的bean 并对该存在的bean属性填充
 	@Override
 	public void autowireBean(Object existingBean) {
 		// Use non-singleton bean definition, to avoid registering bean as dependent bean.
+		//使用非单例bean定义，以避免将bean注册为依赖bean
 		RootBeanDefinition bd = new RootBeanDefinition(ClassUtils.getUserClass(existingBean));
 		bd.setScope(BeanDefinition.SCOPE_PROTOTYPE);
 		bd.allowCaching = ClassUtils.isCacheSafe(bd.getBeanClass(), getBeanClassLoader());
